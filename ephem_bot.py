@@ -13,8 +13,13 @@
 
 """
 import logging
+import config
+import ephem
+import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+planets_set = {"Меркурий":"Mercury", "Венера":"Venus", "Земля":"Earth", "Марс":"Mars", "Юпитер":"Jupiter", "Сатурн":"Saturn", "Уран":"Uranus", "Нептун":"Neptune", "Плутон":"Pluto"}
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
@@ -42,12 +47,33 @@ def talk_to_me(bot, update):
     print(user_text)
     update.message.reply_text(user_text)
  
+def planet_informer(bot, update):
+    now_time = datetime.datetime.now()
+    ephem_date = now_time.strftime("%Y/%m/%d")
+    user_text = update.message.text
+    print('Planet Informer')
+    planet_search = user_text.split(' ')
+    print (planet_search)
+    plnts = "ephem."
+    
+    
+    for planet in planet_search:
+        for k,v in planets_set.items():
+            if planet in k:
+                
+                print ("Поиск данных по небесному телу: ", planet)
+                plnt = getattr(ephem, v.capitalize())(ephem_date)
+                data = ephem.constellation(plnt)
+                print (data)
+                reply = "Планета в созвездии: " +data[1]
+    update.message.reply_text(reply)
 
 def main():
-    mybot = Updater("КЛЮЧ, КОТОРЫЙ НАМ ВЫДАЛ BotFather", request_kwargs=PROXY)
+    mybot = Updater(config.SECRET_KEY, request_kwargs=PROXY)
     
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(CommandHandler("planet", planet_informer))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
     
     mybot.start_polling()

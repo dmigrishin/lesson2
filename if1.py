@@ -14,12 +14,32 @@
 
 """
 
+def user_age(userage):
+    return userage
+
+def user_activity(age):
+    activity=''
+    if age < 7:
+        activity = 'Пользователь должен ходить в детсад'
+    elif age>=7 and age <=18:
+        activity = 'Пользователь должен учиться в школе'
+    elif age>18 and age <=23:
+        activity = 'Пользователь должен учиться в ВУЗе'
+    elif age >23:
+        activity = 'Пользователь должен работать'
+    return activity
+
 def main():
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    pass
+age=int(input('Введите ваш возраст: '))
+
+user_activity = user_activity(age)
+
+print (user_activity)
 
 if __name__ == "__main__":
     main()
+

@@ -9,12 +9,16 @@
    
 """
 
-
 def ask_user():
     """
     Замените pass на ваш код
     """
-    pass
+    
+    user_response = ""
+
+    while user_response != "Хорошо":
+        user_response = input('Как дела?')
+        
 
     
 if __name__ == "__main__":
