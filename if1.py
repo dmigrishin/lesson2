@@ -34,11 +34,9 @@ def main():
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-age=int(input('Введите ваш возраст: '))
-
-user_activity = user_activity(age)
-
-print (user_activity)
+    age=int(input('Введите ваш возраст: '))
+    user_should = user_activity(age)
+    print (user_should)
 
 if __name__ == "__main__":
     main()
