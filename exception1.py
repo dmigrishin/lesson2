@@ -41,7 +41,7 @@ def ask_user():
         try:
             user_response = input('Ну скажи что-нибудь: ')
             condition = small_talking.get(user_response)
-            bot_response = condition if condition is not None else "Чао какао!"
+            bot_response = condition if condition else "Чао какао!"
             print(bot_response)
         except KeyboardInterrupt:
             print('пока :(')
